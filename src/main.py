@@ -1,24 +1,16 @@
-import os
-
-from dotenv import load_dotenv
-from google import genai
-
-from tools.calculator import add_numbers
+from agent.agent import EventOpsAgent
 
 
-load_dotenv()
+def main():
 
-api_key = os.getenv("GEMINI_API_KEY")
+    agent = EventOpsAgent()
 
-client = genai.Client(api_key=api_key)
+    response = agent.ask(
+        "What can an AI agent do for a banquet hall business?"
+    )
+
+    print(response)
 
 
-response = client.models.generate_content(
-    model="gemini-3.6-flash",
-    contents="What is 25 + 37?",
-    config={
-        "tools": [add_numbers]
-    }
-)
-
-print(response.text)
+if __name__ == "__main__":
+    main()
